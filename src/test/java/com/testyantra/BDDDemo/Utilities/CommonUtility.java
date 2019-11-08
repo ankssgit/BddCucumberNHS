@@ -3,15 +3,17 @@ package com.testyantra.BDDDemo.Utilities;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class CommonUtility extends BaseStep {
 	
-	WebDriverWait wait;
+	WebDriverWait wait=new WebDriverWait(driver, 40);
 	Logger log=Logger.getLogger(this.getClass().getName());
 	
 	
@@ -46,10 +48,10 @@ public class CommonUtility extends BaseStep {
 		String[] s1 = Object.split("~");
 		for(int i=0;i<=s1.length-1;i++)
 		{
-			locatorvalue=locatorvalue+s1[0];
-			locatorname=locatorname+s1[s1.length-1];  //s1[1]
+			locatorvalue=s1[0];
+			locatorname=s1[s1.length-1];  //s1[1]
 		}
-		locatorname.toUpperCase();
+		//locatorname.toUpperCase();
 		try {
 		switch(locatorname.toUpperCase())
 		{
@@ -63,6 +65,7 @@ public class CommonUtility extends BaseStep {
 		case "XPATH":
 			ele = wait.until(ExpectedConditions
 					.presenceOfElementLocated(By.xpath(locatorvalue)));
+			
 			break;
 		case "ID":
 			
@@ -102,15 +105,23 @@ public class CommonUtility extends BaseStep {
 	     }   
 
  
-     public void scrollToElement(String PageObject)
+     public void scrollToElement()
      
          {
-    	 WebElement scrollableElement=getPageElement(PageObject);
+    	// WebElement scrollableElement=getPageElement(PageObject);
     	 try {
-    		 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scrollableElement);
-			Thread.sleep(500);
+//    		 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scrollableElement);
+			Thread.sleep(5000);
+//    		 ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,document.body.scrollHeight)");
+    		 //Thread.sleep(20000);
+//    		 ((JavascriptExecutor) driver).executeScript("scroll(0,400)");
+    	 ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,500)");
+    		/* Actions action=new Actions(driver);
+    		 action.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();*/
+    		 
+
 		     }
-    	 catch (InterruptedException e) 
+    	 catch (Exception e) 
     	     {
 			e.printStackTrace()	;					
              }
@@ -124,8 +135,6 @@ public class CommonUtility extends BaseStep {
     	 {
     	 wait.until(ExpectedConditions.visibilityOf(getPageElement(PageObject)));
     	 log.info("The Element is Present");
-    	 String ele=getPageElement(PageObject).getText();
-    	 log.info("The Element is"+ele);
     	 }
     	 catch(Exception e)
     	 {
@@ -138,13 +147,18 @@ public class CommonUtility extends BaseStep {
      {
     	 try
     	 {
-    		 getPageElement(PageObject).sendKeys("text");
+    		 getPageElement(PageObject).sendKeys(text);
     	 }
     	 catch(Exception e)
     	 {
     		 e.printStackTrace();
     	 }
      }
+     
+     
+     
+     
+     
      
      
      

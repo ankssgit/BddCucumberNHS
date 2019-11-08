@@ -11,13 +11,9 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 
- @CucumberOptions(features = "src/main/java/com.testyantra.BDDDemo.features",
-			glue = {"com.testyantra.BDDDemo.StepDefinition","com.testyantra.BDDDemo.Trigger"}, monochrome = true, plugin = {
-					"pretty", "html:target/Report/cucumber",
-					"json:target/cucumber/report.json",
-					"usage:target/cucumber/cucumber-usage.json",
-					"com.cucumber.listener.ExtentCucumberFormatter:"},
-			tags= "@NHSCostChecker")
+ @CucumberOptions(features = "src/main/java/features",
+			glue = {"com.testyantra.BDDDemo.StepDefinition","com.testyantra.BDDDemo.Trigger"}, 
+			tags= "@NHSSurvey")
 public class Runner extends AbstractTestNGCucumberTests {
 
 BaseStep base =new BaseStep();
@@ -35,14 +31,14 @@ BaseStep base =new BaseStep();
 		FileUtils.deleteDirectory(new File(reportFilePath));
 	}
 	base.reportSetup(reportFilePath + File.separator + "report.html");	*/
-	
+	base.log4jint();
 	base.OpenApp();
    	} 
     
     @AfterTest
        public void closeApplication()
       {
-	     base.driver.close();
+	     //base.driver.close();
 		//Reporter.loadXMLConfig(new File("./ExtentReport.xml"));
 		//Reporter.setSystemInfo("user", System.getProperty("user.name"));
 		//Reporter.setSystemInfo("os", System.getProperty("MAC OSX"));
