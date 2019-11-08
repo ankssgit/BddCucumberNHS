@@ -15,5 +15,5 @@ public class PageRepository {
 	public static final String taxCredit_Btn="//label[@for='taxCredit']~xpath";
 	public static final String Home_btn="//div[@class='header-global']~xpath";
 	public static final String feedback_btn="//a[@id='feedback-link']~xpath";
-	
+	//public static final String feedback_btn="//a[@id='feedback-link']~xpath";
 }
